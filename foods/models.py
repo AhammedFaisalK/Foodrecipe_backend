@@ -6,6 +6,7 @@ class Food(models.Model):
     publisher_name = models.CharField(max_length=200)
     featured_image = models.ImageField(upload_to="foods/images")
     category = models.ForeignKey("foods.Category", on_delete=models.CASCADE)
+    ingredients = models.TextField()
     description = models.TextField()
     is_deleted = models.BooleanField(default=False)
 

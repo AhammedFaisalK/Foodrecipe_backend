@@ -7,7 +7,7 @@ from api.v1.foods.serializers import FoodSerializer, FoodDetailSerializer
 
 
 @api_view(["GET"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def foods(request):
     instances = Food.objects.filter(is_deleted = False)
 
@@ -23,7 +23,7 @@ def foods(request):
 
 
 @api_view(["GET"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def singleFood(request, pk):
     if Food.objects.filter(pk=pk).exists():
         instance = Food.objects.get(pk=pk)
@@ -46,7 +46,7 @@ def singleFood(request, pk):
     
 
 @api_view(["POST"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def create(request):
     serializer = FoodSerializer(data=request.data)
         

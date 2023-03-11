@@ -5,5 +5,4 @@ urlpatterns = [
     path("",foods),
     path("view/<int:pk>/",singleFood),
     path("create/",create),
-
 ] 

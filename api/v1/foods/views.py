@@ -4,12 +4,19 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from foods.models import Food
 from api.v1.foods.serializers import FoodSerializer, FoodDetailSerializer
+from django.db.models import Q
 
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def foods(request):
     instances = Food.objects.filter(is_deleted = False)
+
+    q = request.GET.get("q")
+
+    if q:
+        instances = instances.filter(Q(name__icontains=q) | Q(publisher_name__icontains=q))
+
 
     context = {
         "request" : request
@@ -46,7 +53,7 @@ def singleFood(request, pk):
     
 
 @api_view(["POST"])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def create(request):
     serializer = FoodSerializer(data=request.data)
         
@@ -67,4 +74,13 @@ def create(request):
         }
 
         return Response(response_data)
+    
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def delete(request, pk):
+    product = Food.objects.get(id=pk)
+    product.delete()
+
+    return Response('Items delete successfully!')
     

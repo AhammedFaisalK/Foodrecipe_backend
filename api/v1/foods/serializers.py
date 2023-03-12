@@ -11,7 +11,10 @@ class FoodSerializer(ModelSerializer):
 
     
     def get_category(self, instance):
-        return instance.category.name
+        return {"name":instance.category.name,
+                "id":instance.category.id
+                }
+               
 
 
 class FoodDetailSerializer(ModelSerializer):

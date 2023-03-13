@@ -1,5 +1,5 @@
 from django.contrib import admin
-from foods.models import Food, Category
+from foods.models import Food
 
 
 class FoodAdmin(admin.ModelAdmin):
@@ -8,9 +8,6 @@ class FoodAdmin(admin.ModelAdmin):
 admin.site.register(Food,FoodAdmin)
 
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ["id", "name"]
 
-admin.site.register(Category,CategoryAdmin)
 
 

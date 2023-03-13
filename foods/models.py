@@ -5,7 +5,6 @@ class Food(models.Model):
     name = models.CharField(max_length=200)
     publisher_name = models.CharField(max_length=200)
     featured_image = models.ImageField(upload_to="foods/images")
-    category = models.ForeignKey("foods.Category", on_delete=models.CASCADE)
     ingredients = models.TextField()
     description = models.TextField()
     is_deleted = models.BooleanField(default=False)
@@ -17,12 +16,3 @@ class Food(models.Model):
         return self.name
         
 
-class Category(models.Model):
-    name = models.CharField(max_length=150)
-
-    class Meta:
-        db_table = 'foods_category'
-        verbose_name_plural = "categories"
-
-    def __str__(self):
-        return self.name

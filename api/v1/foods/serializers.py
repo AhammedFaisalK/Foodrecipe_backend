@@ -16,7 +16,7 @@ class FoodSerializer(ModelSerializer):
 class FoodDetailSerializer(ModelSerializer):
  
     class Meta:
-        fields = ("id", "name", "publisher_name", "featured_image", "category", "ingredients", "description")
+        fields = ("id", "name", "publisher_name", "featured_image", "ingredients", "description")
         model = Food
 
 

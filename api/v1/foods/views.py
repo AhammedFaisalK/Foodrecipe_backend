@@ -79,8 +79,37 @@ def create(request):
 @api_view(['DELETE'])
 @permission_classes([AllowAny])
 def delete(request, pk):
-    product = Food.objects.get(id=pk)
-    product.delete()
+    item = Food.objects.get(id=pk)
+    item.delete()
 
     return Response('Items delete successfully!')
+
+
+@api_view(['PUT'])
+@permission_classes([AllowAny])
+def update(request, pk):
+    instance = Food.objects.get(pk=pk)
+    serilizer = FoodSerializer(instance=instance, data= request.data, partial = True)
+    print("This is request",request)
+    print("This is PK",pk)
+
+    if serilizer.is_valid():
+        serilizer.save()
+        response_data = {
+            "status_code" : 6000,
+            "message" :  "Success",
+            "data" : serilizer.data
+        }   
+
+    else:
+        response_data = {
+                "status_code" : 6001,
+                "message" :  "Validation Error",
+                "data" : serilizer.errors
+            }
+        
+    return Response(response_data)
+
+           
+           
     
